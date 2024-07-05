@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "counter"
+require "tty-reader"
+
+reader = TTY::Reader.new
+
+reader.on(:keyctrl_x, :keyscape) do
+  puts "\nExiting"
+  exit
+end
+
+reader.subscribe(Counter::Subscriber.new)
+
+loop do
+  reader.read_char
+end
